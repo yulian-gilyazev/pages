@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Gen AI — Модели 2025–2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0d0e12;
+  --bg1:      #13141a;
+  --bg2:      #1a1c24;
+  --bg3:      #21232e;
+  --line:     #2a2d3a;
+  --line2:    #353848;
+  --text:     #dddbe6;
+  --muted:    #6b6e82;
+  --dim:      #454858;
+
+  /* task colors */
+  --t2v:   #6ea8f7;
+  --i2v:   #5bc8a8;
+  --vext:  #a78bfa;
+  --lips:  #f59e5b;
+  --talk:  #f47fa0;
+  --fswap: #e06060;
+  --anim:  #7dd3b0;
+  --enh:   #94c5f8;
+
+  /* tiers */
+  --pro:   #f4c770;
+  --oss:   #6ee7b7;
+  --disc:  #f87171;
+
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --serif: 'IBM Plex Serif', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.page-header {
+  padding: 52px 52px 40px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d0f16 0%, var(--bg) 100%);
+}
+.header-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.header-title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.header-sub {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 600px;
+  font-weight: 300;
+}
+.header-stats {
+  display: flex;
+  gap: 36px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-n { font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--text); }
+.stat-l { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+/* ── LEGEND BAR ── */
+.legend-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 52px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg1);
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.legend-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px 0 0;
+  border-right: 1px solid var(--line);
+}
+.legend-group:last-child { border-right: none; }
+.legend-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.tier-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+.tier-pro  { color: var(--pro);  border-color: rgba(244,199,112,0.4); background: rgba(244,199,112,0.08); }
+.tier-oss  { color: var(--oss);  border-color: rgba(110,231,183,0.4); background: rgba(110,231,183,0.08); }
+.tier-disc { color: var(--disc); border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.08); }
+
+/* ── FILTER STRIP ── */
+.filter-strip {
+  padding: 10px 52px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+.filter-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+.filter-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--line2); color: var(--text); }
+.filter-btn.active { border-color: var(--line2); color: var(--text); background: var(--bg2); }
+
+/* ── SECTION DIVIDER ── */
+.section-div {
+  padding: 28px 52px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-div-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.section-div-line { flex: 1; height: 1px; background: var(--line); }
+
+/* ── TABLE WRAPPER ── */
+.tbl-wrap {
+  overflow-x: auto;
+  padding: 0 52px 8px;
+}
+.tbl-wrap::-webkit-scrollbar { height: 4px; }
+.tbl-wrap::-webkit-scrollbar-track { background: var(--bg); }
+.tbl-wrap::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+
+/* ── TABLE ── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 1100px;
+}
+
+/* Colgroup for visual separation */
+col.col-info {}
+col.col-tasks {}
+
+thead th {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  padding: 0 10px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+thead th.th-task {
+  text-align: center;
+  padding: 0 6px 10px;
+}
+
+th.th-sep, td.td-sep {
+  width: 1px;
+  padding: 0;
+  background: var(--line);
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--line);
+  transition: background 0.1s;
+}
+tbody tr:hover { background: var(--bg1); }
+tbody tr.row-hidden { display: none; }
+
+td {
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+
+/* Model name cell */
+.td-name {
+  min-width: 180px;
+}
+.model-name {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.model-org {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Tier cell */
+.td-tier { white-space: nowrap; }
+
+/* Date */
+.td-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Max res */
+.td-res {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.td-res span { color: var(--text); }
+
+/* Max len */
+.td-len {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.td-len span { color: var(--text); }
+
+/* Pricing */
+.td-price {
+  min-width: 160px;
+}
+.price-main {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+}
+.price-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* VRAM (for OSS) */
+.td-vram {
+  font-family: var(--mono);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.td-vram span { color: var(--text); }
+
+/* Notes */
+.td-notes {
+  min-width: 180px;
+  max-width: 240px;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Task cells */
+.td-task {
+  text-align: center;
+  width: 52px;
+}
+
+/* Task dot indicators */
+.task-full {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.task-part {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.4;
+  border: 1.5px solid;
+  background: transparent !important;
+}
+.task-no {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--line2);
+}
+
+/* task color classes */
+.c-t2v  { background: var(--t2v);  } .bc-t2v  { border-color: var(--t2v);  }
+.c-i2v  { background: var(--i2v);  } .bc-i2v  { border-color: var(--i2v);  }
+.c-vext { background: var(--vext); } .bc-vext { border-color: var(--vext); }
+.c-lips { background: var(--lips); } .bc-lips { border-color: var(--lips); }
+.c-talk { background: var(--talk); } .bc-talk { border-color: var(--talk); }
+.c-fswap{ background: var(--fswap);} .bc-fswap{ border-color: var(--fswap);}
+.c-anim { background: var(--anim); } .bc-anim { border-color: var(--anim); }
+.c-enh  { background: var(--enh);  } .bc-enh  { border-color: var(--enh);  }
+
+/* ── TASK HEADER INDICATORS ── */
+thead .th-task-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+thead .task-dot-hdr {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+
+/* ── MODEL SECTION LABEL ── */
+.row-section td {
+  background: var(--bg2);
+  padding: 7px 10px;
+}
+.row-section .section-lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── FOOTNOTES ── */
+.footnotes {
+  padding: 32px 52px 56px;
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 48px;
+}
+.fn-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.fn-item {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.fn-key {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  flex-shrink: 0;
+  width: 40px;
+}
+
+/* ── DISCONTINUED MARK ── */
+.disc-row td { opacity: 0.55; }
+.disc-mark {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--disc);
+  border: 1px solid rgba(248,113,113,0.4);
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-left: 6px;
+}
+
+/* ── TOOLTIP ── */
+[data-tip] { position: relative; cursor: default; }
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%; transform: translateX(-50%);
+  background: var(--bg3);
+  border: 1px solid var(--line2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 5px 9px;
+  border-radius: 3px;
+  white-space: nowrap;
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .page-header { padding: 32px 20px 28px; }
+  .legend-bar { padding: 10px 20px; }
+  .filter-strip { padding: 8px 20px; }
+  .section-div { padding: 20px 20px 12px; }
+  .tbl-wrap { padding: 0 20px 8px; }
+  .footnotes { padding: 24px 20px 40px; grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="page-header">
+  <div class="header-eyebrow">Video Gen AI · Reference · Актуально на Q1 2026</div>
+  <h1 class="header-title">Современные модели<br>video generation AI</h1>
+  <p class="header-sub">
+    Полная карта коммерческих и open-source моделей с разбивкой по задачам, ценам, датам выхода и техническим характеристикам.
+  </p>
+  <div class="header-stats">
+    <div class="stat"><span class="stat-n">11</span><span class="stat-l">Proprietary</span></div>
+    <div class="stat"><span class="stat-n">11</span><span class="stat-l">Open Source</span></div>
+    <div class="stat"><span class="stat-n">8</span><span class="stat-l">Типов задач</span></div>
+  </div>
+</header>
+
+<!-- ═══ LEGEND ═══ -->
+<div class="legend-bar">
+  <div class="legend-group">
+    <span class="legend-label">Тип</span>
+    <span class="tier-badge tier-pro">Proprietary</span>
+    <span class="tier-badge tier-oss">Open Source</span>
+    <span class="tier-badge tier-disc">Discontinued</span>
+  </div>
+  <div class="legend-group">
+    <span class="legend-label">Задачи</span>
+    <span class="legend-item"><span class="dot" style="background:var(--t2v)"></span>T2V</span>
+    <span class="legend-item"><span class="dot" style="background:var(--i2v)"></span>I2V</span>
+    <span class="legend-item"><span class="dot" style="background:var(--vext)"></span>V-Ext</span>
+    <span class="legend-item"><span class="dot" style="background:var(--lips)"></span>LipSync</span>
+    <span class="legend-item"><span class="dot" style="background:var(--talk)"></span>Talking Head</span>
+    <span class="legend-item"><span class="dot" style="background:var(--fswap)"></span>Face Swap</span>
+    <span class="legend-item"><span class="dot" style="background:var(--anim)"></span>Img Anim</span>
+    <span class="legend-item"><span class="dot" style="background:var(--enh)"></span>SR / FI</span>
+  </div>
+  <div class="legend-group">
+    <span class="legend-label">Обозначения</span>
+    <span class="legend-item"><span class="dot" style="background:var(--text);opacity:.9"></span>Нативно</span>
+    <span class="legend-item"><span style="width:8px;height:8px;border-radius:50%;display:inline-block;border:1.5px solid var(--text);opacity:.4"></span>Частично</span>
+    <span class="legend-item"><span style="width:4px;height:4px;border-radius:50%;background:var(--line2);display:inline-block"></span>Нет</span>
+  </div>
+</div>
+
+<!-- ═══ FILTER ═══ -->
+<div class="filter-strip">
+  <span class="filter-label">Показать:</span>
+  <button class="filter-btn active" onclick="filterRows('all',this)">Все</button>
+  <button class="filter-btn" onclick="filterRows('pro',this)">Proprietary</button>
+  <button class="filter-btn" onclick="filterRows('oss',this)">Open Source</button>
+  <button class="filter-btn" onclick="filterRows('task-t2v',this)">T2V</button>
+  <button class="filter-btn" onclick="filterRows('task-i2v',this)">I2V</button>
+  <button class="filter-btn" onclick="filterRows('task-lips',this)">LipSync</button>
+  <button class="filter-btn" onclick="filterRows('task-talk',this)">Talking Head</button>
+  <button class="filter-btn" onclick="filterRows('task-anim',this)">Img Anim</button>
+  <button class="filter-btn" onclick="filterRows('task-enh',this)">SR / FI</button>
+</div>
+
+<!-- ═══ TABLE ═══ -->
+<div class="tbl-wrap">
+<table id="main-table">
+<colgroup>
+  <col style="width:180px">
+  <col style="width:80px">
+  <col style="width:70px">
+  <col style="width:80px">
+  <col style="width:70px">
+  <col style="width:165px">
+  <col style="width:130px">
+  <col style="width:1px">
+  <!-- 8 task cols -->
+  <col style="width:52px">
+  <col style="width:52px">
+  <col style="width:52px">
+  <col style="width:52px">
+  <col style="width:52px">
+  <col style="width:52px">
+  <col style="width:52px">
+  <col style="width:52px">
+</colgroup>
+<thead>
+<tr>
+  <th>Модель</th>
+  <th>Тип</th>
+  <th>Дата</th>
+  <th>Разрешение</th>
+  <th>Длина</th>
+  <th>Цена / Доступ</th>
+  <th>Инфраструктура / VRAM</th>
+  <th class="th-sep"></th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--t2v)"></span>
+      <span>T2V</span>
+    </div>
+  </th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--i2v)"></span>
+      <span>I2V</span>
+    </div>
+  </th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--vext)"></span>
+      <span>V-Ext</span>
+    </div>
+  </th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--lips)"></span>
+      <span>Lip</span>
+    </div>
+  </th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--talk)"></span>
+      <span>Talk</span>
+    </div>
+  </th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--fswap)"></span>
+      <span>FSwap</span>
+    </div>
+  </th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--anim)"></span>
+      <span>Anim</span>
+    </div>
+  </th>
+  <th class="th-task">
+    <div class="th-task-inner">
+      <span class="task-dot-hdr" style="background:var(--enh)"></span>
+      <span>SR/FI</span>
+    </div>
+  </th>
+</tr>
+</thead>
+<tbody>
+
+<!-- ═══ PROPRIETARY SECTION ═══ -->
+<tr class="row-section">
+  <td colspan="16"><span class="section-lbl">◼ Proprietary / Commercial</span></td>
+</tr>
+
+<!-- Runway Gen-4.5 -->
+<tr class="row-pro task-t2v task-i2v task-vext" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Runway Gen-4.5</div>
+    <div class="model-org">Runway AI · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Dec 2025</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>16s</span></td>
+  <td class="td-price">
+    <div class="price-main">от $12/мес</div>
+    <div class="price-note">$0.15/сек (API), ~Gen-4 Turbo $0.08/сек</div>
+  </td>
+  <td class="td-vram">Cloud SaaS + API</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="Text-to-Video"><span class="task-full c-t2v"></span></td>
+  <td class="td-task" data-tip="Image-to-Video"><span class="task-full c-i2v"></span></td>
+  <td class="td-task" data-tip="Video Extension"><span class="task-full c-vext"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Motion Brush — управляемая анимация объектов"><span class="task-part bc-anim" style="border-color:var(--anim)"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Veo 3.1 -->
+<tr class="row-pro task-t2v task-i2v" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Veo 3.1</div>
+    <div class="model-org">Google DeepMind · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Oct 2025</td>
+  <td class="td-res"><span>4K</span> (native)</td>
+  <td class="td-len"><span>60s+</span></td>
+  <td class="td-price">
+    <div class="price-main">$0.20–0.60/сек</div>
+    <div class="price-note">+audio: $0.40–0.60/сек · via Vertex AI</div>
+  </td>
+  <td class="td-vram">Cloud API (Google)</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="Text-to-Video, native audio"><span class="task-full c-t2v"></span></td>
+  <td class="td-task" data-tip="Image-to-Video, first-last-frame"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Native audio включая dialogue"><span class="task-part bc-lips"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Kling O1 / 2.6 -->
+<tr class="row-pro task-t2v task-i2v task-vext task-lips" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Kling 2.6 / O1</div>
+    <div class="model-org">Kuaishou · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Dec 2025</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>2 мин</span></td>
+  <td class="td-price">
+    <div class="price-main">Free tier + от $6.99/мес</div>
+    <div class="price-note">API: $0.07/сек (Turbo Pro) · 10M+ видео сгенерировано</div>
+  </td>
+  <td class="td-vram">Cloud SaaS + API</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="T2V + native audio (audio-visual одним проходом)"><span class="task-full c-t2v"></span></td>
+  <td class="td-task" data-tip="I2V + first/last frame"><span class="task-full c-i2v"></span></td>
+  <td class="td-task" data-tip="Video Extension"><span class="task-full c-vext"></span></td>
+  <td class="td-task" data-tip="Kling LipSync — встроенный модуль"><span class="task-full c-lips"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Kling O1 Image Animation"><span class="task-part bc-anim"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Pika 2.5 -->
+<tr class="row-pro task-t2v task-i2v" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Pika 2.5</div>
+    <div class="model-org">Pika Labs · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Nov 2025</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>10s</span></td>
+  <td class="td-price">
+    <div class="price-main">от $8/мес</div>
+    <div class="price-note">Free tier (480p) · генерация за ~42 сек</div>
+  </td>
+  <td class="td-vram">Cloud SaaS</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="T2V + Pikaswaps, Pikaffects"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Luma Ray3 -->
+<tr class="row-pro task-t2v task-i2v" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Luma Ray3</div>
+    <div class="model-org">Luma AI · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Nov 2025</td>
+  <td class="td-res"><span>4K HDR</span></td>
+  <td class="td-len"><span>10s</span></td>
+  <td class="td-price">
+    <div class="price-main">от $7.99/мес</div>
+    <div class="price-note">Unlimited план $29.99/мес · API доступен</div>
+  </td>
+  <td class="td-vram">Cloud SaaS + API</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="T2V, физическая симуляция класса HiFi"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Hailuo 2.3 -->
+<tr class="row-pro task-t2v task-i2v" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Hailuo 2.3</div>
+    <div class="model-org">MiniMax · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Oct 2025</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>10s</span></td>
+  <td class="td-price">
+    <div class="price-main">$14.99/мес</div>
+    <div class="price-note">API: $0.28 за 6с (Standard) / $0.49 (Pro)</div>
+  </td>
+  <td class="td-vram">Cloud SaaS + API</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Seedance / ByteDance -->
+<tr class="row-pro task-t2v task-i2v" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Seedance 1.5</div>
+    <div class="model-org">ByteDance · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Nov 2025</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>20s</span></td>
+  <td class="td-price">
+    <div class="price-main">~$0.26 за 5с (API)</div>
+    <div class="price-note">1M токенов с audio: $2.4 · via fal.ai</div>
+  </td>
+  <td class="td-vram">Cloud API</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="Native audio support в 1.5"><span class="task-full c-t2v"></span></td>
+  <td class="td-task" data-tip="Start + end frame control"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Adobe Firefly Video -->
+<tr class="row-pro task-t2v task-i2v" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Adobe Firefly Video</div>
+    <div class="model-org">Adobe · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">Dec 2025</td>
+  <td class="td-res"><span>4K</span></td>
+  <td class="td-len"><span>10s</span></td>
+  <td class="td-price">
+    <div class="price-main">Creative Cloud (в составе)</div>
+    <div class="price-note">Enterprise API · коммерчески-безопасен (лицензированные данные)</div>
+  </td>
+  <td class="td-vram">Cloud (Firefly) + Premiere Pro</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="Также агрегирует Veo 3.1, Runway, Sora и др."><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- HeyGen -->
+<tr class="row-pro task-talk task-lips" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">HeyGen (Avatar IV)</div>
+    <div class="model-org">HeyGen · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">2025</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>до 60с</span></td>
+  <td class="td-price">
+    <div class="price-main">от $29/мес</div>
+    <div class="price-note">API для разработчиков · многоязычный dubbing</div>
+  </td>
+  <td class="td-vram">Cloud SaaS + API</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Автоматический lip-sync при dubbing"><span class="task-full c-lips"></span></td>
+  <td class="td-task" data-tip="Talking avatar из фото или filming session"><span class="task-full c-talk"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Sync.so -->
+<tr class="row-pro task-lips" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Sync.so (lipsync-2-pro)</div>
+    <div class="model-org">Sync Labs · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">2025</td>
+  <td class="td-res"><span>4K</span></td>
+  <td class="td-len">—</td>
+  <td class="td-price">
+    <div class="price-main">API pay-per-use</div>
+    <div class="price-note">lipsync-2 / lipsync-2-pro · от создателей Wav2Lip</div>
+  </td>
+  <td class="td-vram">Cloud API</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Studio-grade lip sync, diffusion SR"><span class="task-full c-lips"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Topaz Video AI -->
+<tr class="row-pro task-enh" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Topaz Video AI</div>
+    <div class="model-org">Topaz Labs · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-pro">Proprietary</span></td>
+  <td class="td-date">2024–</td>
+  <td class="td-res">up to <span>8K</span></td>
+  <td class="td-len">—</td>
+  <td class="td-price">
+    <div class="price-main">$299 (одноразово)</div>
+    <div class="price-note">Локальный запуск · Windows/macOS</div>
+  </td>
+  <td class="td-vram">Локально, GPU-ускорение</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Upscale до 8K + frame interpolation до 120fps"><span class="task-full c-enh"></span></td>
+</tr>
+
+<!-- SORA — discontinued -->
+<tr class="disc-row row-pro task-t2v task-i2v task-vext" data-tier="pro">
+  <td class="td-name">
+    <div class="model-name">Sora 2 <span class="disc-mark">Закрыт</span></div>
+    <div class="model-org">OpenAI · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-disc">Discontinued</span></td>
+  <td class="td-date">Mar 2026 ✕</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>35s</span></td>
+  <td class="td-price">
+    <div class="price-main">Закрыт 24.03.2026</div>
+    <div class="price-note">OpenAI перенаправил GPU на следующее поколение</div>
+  </td>
+  <td class="td-vram">—</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-full c-vext"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- ═══ OPEN SOURCE SECTION ═══ -->
+<tr class="row-section">
+  <td colspan="16"><span class="section-lbl">◻ Open Source / Self-hostable</span></td>
+</tr>
+
+<!-- Wan 2.2 -->
+<tr class="row-oss task-t2v task-i2v task-anim" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">Wan 2.2</div>
+    <div class="model-org">Alibaba Tongyi Lab · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">Jul 2025</td>
+  <td class="td-res"><span>1080p</span> / 24fps</td>
+  <td class="td-len"><span>81 кадр</span></td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно (Apache 2.0)</div>
+    <div class="price-note">Лицензия: Apache 2.0 · CommercialOK</div>
+  </td>
+  <td class="td-vram"><span>27GB+</span> VRAM (14B active)</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="MoE архитектура, топ по cinematic aesthetics"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Wan2.2-Animate-14B: character animation + replacement"><span class="task-full c-anim"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- HunyuanVideo 1.5 -->
+<tr class="row-oss task-t2v task-i2v" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">HunyuanVideo 1.5</div>
+    <div class="model-org">Tencent · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">Dec 2025</td>
+  <td class="td-res"><span>1080p</span></td>
+  <td class="td-len"><span>10s</span></td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно</div>
+    <div class="price-note">Лицензия: Tencent Community (custom) · CommercialOK с атрибуцией</div>
+  </td>
+  <td class="td-vram"><span>14GB+</span> VRAM (с offload)</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="13B→8.3B параметров, SOTA instruction following"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- LTX-Video 2 -->
+<tr class="row-oss task-t2v task-i2v" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">LTX-Video 2</div>
+    <div class="model-org">Lightricks · Израиль</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">Nov 2025</td>
+  <td class="td-res"><span>4K</span> @ 50fps</td>
+  <td class="td-len"><span>60s+</span></td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно</div>
+    <div class="price-note">Лицензия: LTX Custom · native audio sync</div>
+  </td>
+  <td class="td-vram"><span>20GB+</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="Самые длинные и быстрые клипы в классе OSS"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- Mochi 1 -->
+<tr class="row-oss task-t2v" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">Mochi 1</div>
+    <div class="model-org">Genmo · США</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">Nov 2024</td>
+  <td class="td-res"><span>480p–720p</span></td>
+  <td class="td-len"><span>10s</span></td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно (Apache 2.0)</div>
+    <div class="price-note">10B AsymmDiT · наиболее permissive лицензия</div>
+  </td>
+  <td class="td-vram"><span>16GB+</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="10B AsymmDiT, Apache 2.0 — самый чистый для коммерции"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- CogVideoX -->
+<tr class="row-oss task-t2v task-i2v" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">CogVideoX-5B</div>
+    <div class="model-org">Zhipu AI / THU · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">Aug 2024</td>
+  <td class="td-res"><span>720p</span></td>
+  <td class="td-len"><span>10s</span></td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно (Apache 2.0)</div>
+    <div class="price-note">Мин. VRAM 8–12GB · beginner-friendly</div>
+  </td>
+  <td class="td-vram"><span>8–12GB</span> VRAM (мин.)</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="Expert Transformer архитектура"><span class="task-full c-t2v"></span></td>
+  <td class="td-task"><span class="task-full c-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- AnimateDiff -->
+<tr class="row-oss task-t2v task-anim" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">AnimateDiff v3</div>
+    <div class="model-org">Open community · SD-based</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">2023–2024</td>
+  <td class="td-res"><span>512–1024p</span></td>
+  <td class="td-len"><span>до 32 кадра</span></td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно (Apache 2.0)</div>
+    <div class="price-note">Plug-in для любых SD-моделей (SDXL, Flux и др.)</div>
+  </td>
+  <td class="td-vram"><span>8–12GB</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task" data-tip="Работает поверх любого SD checkpoint"><span class="task-full c-t2v"></span></td>
+  <td class="td-task" data-tip="Через img2img SD pipeline"><span class="task-part bc-i2v"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Motion LoRA для управления движением персонажей"><span class="task-full c-anim"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- LatentSync -->
+<tr class="row-oss task-lips" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">LatentSync 1.6</div>
+    <div class="model-org">ByteDance · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">Jun 2025</td>
+  <td class="td-res"><span>512×512+</span></td>
+  <td class="td-len">—</td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно</div>
+    <div class="price-note">Latent diffusion lip sync · MuseTalk / Wav2Lip альтернатива</div>
+  </td>
+  <td class="td-vram"><span>20–30GB</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Audio-conditioned latent diffusion (Whisper + SD U-Net)"><span class="task-full c-lips"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- SadTalker -->
+<tr class="row-oss task-talk task-lips" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">SadTalker</div>
+    <div class="model-org">CUHK / Open community</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">2023</td>
+  <td class="td-res"><span>256p</span></td>
+  <td class="td-len">—</td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно</div>
+    <div class="price-note">3DMM-подход · классика OSS talking head</div>
+  </td>
+  <td class="td-vram"><span>8GB</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Lip sync через 3DMM параметры"><span class="task-part bc-lips"></span></td>
+  <td class="td-task" data-tip="Full head motion из фото + аудио"><span class="task-full c-talk"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- LivePortrait -->
+<tr class="row-oss task-anim task-lips" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">LivePortrait</div>
+    <div class="model-org">Kuaishou / KwaiVGI · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">Jul 2024</td>
+  <td class="td-res"><span>до 1080p</span></td>
+  <td class="td-len">—</td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно</div>
+    <div class="price-note">12.8ms/frame на RTX 4090 · люди + животные</div>
+  </td>
+  <td class="td-vram"><span>8GB+</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Eye + lip retargeting контроль"><span class="task-part bc-lips"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="Image animation via implicit keypoints + driving video"><span class="task-full c-anim"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- InsightFace inswapper -->
+<tr class="row-oss task-fswap" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">InsightFace (inswapper)</div>
+    <div class="model-org">DeepInsight · Китай</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">2023–2024</td>
+  <td class="td-res">—</td>
+  <td class="td-len">—</td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно (non-commercial)</div>
+    <div class="price-note">inswapper_128 · ArcFace identity embedding · one-shot</div>
+  </td>
+  <td class="td-vram"><span>4–6GB</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="One-shot face swap, ArcFace identity embedding"><span class="task-full c-fswap"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+</tr>
+
+<!-- RIFE + Real-ESRGAN -->
+<tr class="row-oss task-enh" data-tier="oss">
+  <td class="td-name">
+    <div class="model-name">RIFE + Real-ESRGAN</div>
+    <div class="model-org">megvii / xinntao · Open</div>
+  </td>
+  <td class="td-tier"><span class="tier-badge tier-oss">Open Source</span></td>
+  <td class="td-date">2022–2023</td>
+  <td class="td-res">up to <span>4K</span></td>
+  <td class="td-len">—</td>
+  <td class="td-price">
+    <div class="price-main">Бесплатно</div>
+    <div class="price-note">Video2X framework объединяет оба · ncnn/Vulkan backend</div>
+  </td>
+  <td class="td-vram"><span>4–8GB</span> VRAM</td>
+  <td class="td-sep"></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task"><span class="task-no"></span></td>
+  <td class="td-task" data-tip="RIFE: frame interpolation 30→120fps · Real-ESRGAN: upscale до 4K"><span class="task-full c-enh"></span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<!-- ═══ PRICE BENCHMARKS ═══ -->
+<div class="section-div">
+  <span class="section-div-title">Ориентиры стоимости генерации (API, на март 2026)</span>
+  <div class="section-div-line"></div>
+</div>
+
+<div class="tbl-wrap" style="padding-bottom:0">
+<table style="min-width:700px">
+<colgroup>
+  <col style="width:200px">
+  <col style="width:180px">
+  <col style="width:130px">
+  <col style="width:auto">
+</colgroup>
+<thead>
+<tr>
+  <th>Модель</th>
+  <th>Цена за секунду (ср.)</th>
+  <th>Цена за 5 сек</th>
+  <th>Примечание</th>
+</tr>
+</thead>
+<tbody>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Veo 3.1 (4K + audio)</div></td>
+  <td class="td-price"><div class="price-main">$0.60/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$3.00</span></td>
+  <td class="td-notes">Самый дорогой формат в классе</td></tr>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Runway Gen-4.5</div></td>
+  <td class="td-price"><div class="price-main">$0.15/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$0.75</span></td>
+  <td class="td-notes">Топ по creative control, самый дорогой в тире</td></tr>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Veo 3.1 (720p, no audio)</div></td>
+  <td class="td-price"><div class="price-main">$0.20/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$1.00</span></td>
+  <td class="td-notes">Базовый тариф, без audio</td></tr>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Seedance 1.5 Pro</div></td>
+  <td class="td-price"><div class="price-main">~$0.05/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$0.26</span></td>
+  <td class="td-notes">720p 5с + audio</td></tr>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Kling 2.5 Turbo Pro</div></td>
+  <td class="td-price"><div class="price-main">$0.07/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$0.35</span></td>
+  <td class="td-notes">Топ соотношение цена/качество</td></tr>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Wan 2.2 A14B (via cloud)</div></td>
+  <td class="td-price"><div class="price-main">$0.10/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$0.50</span></td>
+  <td class="td-notes">Или бесплатно при self-hosting</td></tr>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Hailuo 2.3 Standard</div></td>
+  <td class="td-price"><div class="price-main">$0.047/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$0.28 за 6с</span></td>
+  <td class="td-notes">768p</td></tr>
+<tr><td class="td-name"><div class="model-name" style="font-size:12px">Wan 2.5 (lite)</div></td>
+  <td class="td-price"><div class="price-main">$0.05/сек</div></td>
+  <td><span style="font-family:var(--mono);font-size:12px;color:var(--text)">$0.25</span></td>
+  <td class="td-notes">480p, самый дешёвый в классе cloud</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ═══ FOOTNOTES ═══ -->
+<div class="footnotes">
+  <div>
+    <div class="fn-title">Расшифровка задач</div>
+    <div class="fn-item"><span class="fn-key">T2V</span>Text-to-Video — генерация видео с нуля из текстового промпта</div>
+    <div class="fn-item"><span class="fn-key">I2V</span>Image-to-Video — анимация из одного стоп-кадра</div>
+    <div class="fn-item"><span class="fn-key">V-Ext</span>Video Extension — продолжение/расширение существующего клипа</div>
+    <div class="fn-item"><span class="fn-key">Lip</span>Lip Sync — переделка рта под новую аудиодорожку (dubbing)</div>
+    <div class="fn-item"><span class="fn-key">Talk</span>Talking Head — генерация говорящего аватара из фото + аудио</div>
+    <div class="fn-item"><span class="fn-key">FSwap</span>Face Swap — замена идентичности лица в видео</div>
+    <div class="fn-item"><span class="fn-key">Anim</span>Image Animation — анимация изображения по driving-video</div>
+    <div class="fn-item"><span class="fn-key">SR/FI</span>Super-Resolution + Frame Interpolation — апскейл и интерполяция кадров</div>
+  </div>
+  <div>
+    <div class="fn-title">Примечания</div>
+    <div class="fn-item"><span class="fn-key" style="width:auto;margin-right:8px">●</span>Цены API актуальны на март 2026 и могут меняться. Многие модели доступны через агрегаторы (fal.ai, Replicate) с отличающимися ценами.</div>
+    <div class="fn-item"><span class="fn-key" style="width:auto;margin-right:8px">●</span>Sora 2 закрыт OpenAI 24 марта 2026 — указан для исторической референции.</div>
+    <div class="fn-item"><span class="fn-key" style="width:auto;margin-right:8px">●</span>VRAM для OSS-моделей указан как минимум для базового качества. Комфортная работа требует +4–8GB сверх минимума.</div>
+    <div class="fn-item"><span class="fn-key" style="width:auto;margin-right:8px">●</span>«Частично» (полупрозрачный круг) означает побочную или ограниченную поддержку задачи, а не основной use case модели.</div>
+  </div>
+</div>
+
+<script>
+function filterRows(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const rows = document.querySelectorAll('#main-table tbody tr:not(.row-section)');
+  rows.forEach(row => {
+    if (type === 'all') {
+      row.classList.remove('row-hidden');
+      return;
+    }
+    if (type === 'pro') {
+      row.classList.toggle('row-hidden', !row.classList.contains('row-pro'));
+      return;
+    }
+    if (type === 'oss') {
+      row.classList.toggle('row-hidden', !row.classList.contains('row-oss'));
+      return;
+    }
+    // task filter
+    row.classList.toggle('row-hidden', !row.classList.contains(type));
+  });
+  // show/hide section headers based on visible rows
+  const secRows = document.querySelectorAll('#main-table tbody tr.row-section');
+  secRows.forEach(sec => {
+    let next = sec.nextElementSibling;
+    let anyVisible = false;
+    while (next && !next.classList.contains('row-section')) {
+      if (!next.classList.contains('row-hidden')) { anyVisible = true; break; }
+      next = next.nextElementSibling;
+    }
+    sec.style.display = anyVisible ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
